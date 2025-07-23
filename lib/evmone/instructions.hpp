@@ -9,6 +9,7 @@
 #include "instructions_traits.hpp"
 #include "instructions_xmacro.hpp"
 #include <evmone_precompiles/keccak.hpp>
+#include <iostream>
 
 namespace evmone
 {
@@ -653,7 +654,7 @@ inline Result extcodehash(StackTop stack, int64_t gas_left, ExecutionState& stat
     return {EVMC_SUCCESS, gas_left};
 }
 
-
+#if 0
 inline void blockhash(StackTop stack, ExecutionState& state) noexcept
 {
     auto& number = stack.top();
@@ -665,6 +666,27 @@ inline void blockhash(StackTop stack, ExecutionState& state) noexcept
         (number < upper_bound && n >= lower_bound) ? state.host.get_block_hash(n) : evmc::bytes32{};
     number = intx::be::load<uint256>(header);
 }
+#endif 
+
+
+inline void blockhash(StackTop stack, ExecutionState& state) noexcept
+{
+    const auto out_mem = stack.pop();
+    const auto height = stack.pop();
+
+    mcstring bhash=state.host.HostFunc()->get_blockhash(intx::be::store<evmc::uint256be>(height));
+
+    int64_t gas_left = 10000000000;  // Set a default gas limit for the operation.
+    if (!check_memory(gas_left, state.memory, out_mem, bhash.size))
+    {
+        std::cerr << "Memory check failed for blockhash instruction." << std::endl;
+    }
+
+    size_t o_i = static_cast<size_t>(out_mem);
+    std::memcpy(&state.memory[o_i], bhash.data, bhash.size);
+    stack.push(bhash.size);
+ }
+
 
 inline void coinbase(StackTop stack, ExecutionState& state) noexcept
 {

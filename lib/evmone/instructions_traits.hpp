@@ -301,7 +301,8 @@ constexpr inline std::array<Traits, 256> traits = []() noexcept {
     table[OP_RETURNDATACOPY] = {"RETURNDATACOPY", 0, false, 3, -3, EVMC_BYZANTIUM, REV_EOF1};
     table[OP_EXTCODEHASH] = {"EXTCODEHASH", 0, false, 1, 0, EVMC_CONSTANTINOPLE};
 
-    table[OP_BLOCKHASH] = {"BLOCKHASH", 0, false, 1, 0, EVMC_FRONTIER, REV_EOF1};
+    //table[OP_BLOCKHASH] = {"BLOCKHASH", 0, false, 1, 0, EVMC_FRONTIER, REV_EOF1};
+    table[OP_BLOCKHASH] = {"BLOCKHASH", 0, false, 2, -1, EVMC_FRONTIER, REV_EOF1};
     table[OP_COINBASE] = {"COINBASE", 0, false, 0, 1, EVMC_FRONTIER, REV_EOF1};
     table[OP_TIMESTAMP] = {"TIMESTAMP", 0, false, 0, 1, EVMC_FRONTIER, REV_EOF1};
     table[OP_NUMBER] = {"NUMBER", 0, false, 0, 1, EVMC_FRONTIER, REV_EOF1};
