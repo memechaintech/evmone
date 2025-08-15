@@ -1,6 +1,6 @@
 [submodule "evmc"]
 	path = evmc
-	url = https://github.com/ethereum/evmc
+	url = https://github.com/MoonMeshTech/evmc
 [submodule "evm-benchmarks"]
 	path = test/evm-benchmarks
-	url = https://github.com/ipsilon/evm-benchmarks
+	url = https://github.com/MoonMeshTech/evm-benchmarks
